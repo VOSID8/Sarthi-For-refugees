@@ -22,33 +22,18 @@ const Contact = () => {
               id="standard-basic"
               label="First Name"
               variant="standard"
-              sx={{
-                '& .MuiFormLabel-root': {
-                  fontSize: '2rem',
-                },
-              }}
             />
             <TextField
               className={Styles.field}
               id="standard-basic"
               label="Last Name"
               variant="standard"
-              sx={{
-                '& .MuiFormLabel-root': {
-                  fontSize: '2rem',
-                },
-              }}
             />
             <TextField
               className={Styles.field}
               id="standard-basic"
               label="Email"
               variant="standard"
-              sx={{
-                '& .MuiFormLabel-root': {
-                  fontSize: '2rem',
-                },
-              }}
             />
             <TextField
             className={Styles.field}
@@ -57,11 +42,6 @@ const Contact = () => {
               multiline
               rows={4}
               variant="standard"
-              sx={{
-                '& .MuiFormLabel-root': {
-                  fontSize: '2rem',
-                },
-              }}
             />
             <Button variant="contained" href="#contained-buttons">
               Send Message

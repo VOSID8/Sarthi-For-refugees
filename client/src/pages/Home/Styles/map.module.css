@@ -4,10 +4,10 @@
     position: relative;
     display: inline-block;
   }
-.map-container img {
-    width: 80%;
+  .map-container img {
+    width: 100%;
   }
-.map-container .point {
+  .map-container .point {
     cursor: pointer;
     position: absolute;
     width: 1.6rem;
@@ -20,7 +20,7 @@
     box-shadow: 0 0 0 rgba(0, 172, 193, 0.4);
     animation: pulse 3s infinite;
   }
-.map-container .point:hover {
+  .map-container .point:hover {
     animation: none;
     transform: translate(-50%, -50%) scale3D(1.35, 1.35, 1);
     box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
@@ -87,17 +87,5 @@
     }
     100% {
       box-shadow: 0 0 0 0 rgba(0, 172, 193, 0);
-    }
-  }
-
-  @media only screen and (max-width:320px){
-    .map{
-      width: 400vw;
-    }
-  }
-
-  @media only screen and (max-width:426px){
-    .map{
-      width: 400vw;
     }
   }
