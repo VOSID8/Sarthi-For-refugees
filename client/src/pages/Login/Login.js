@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useContext } from "react";
 
 import { useNavigate } from "react-router-dom";
 
@@ -10,14 +10,15 @@ import wave from "./image/wave.png";
 
 import axios from "axios";
 import { api_url } from "../../config";
+import AuthContext from "../../store/auth-context";
+
 
 const Login = () => {
   // const navigate = useNavigate();
+  const authCtx = useContext(AuthContext);
 
   const [email, setEmail] = useState();
   const [password, setPassword] = useState();
-
-
 
   const submitHandler = async (e) => {
     e.preventDefault();
@@ -30,7 +31,7 @@ const Login = () => {
     const res = await axios.post(`${api_url}auth/login/`, data)
 
     if(res.status == 200) {
-      document.cookie = `token=${res.data.token};domain=ccstiet.com`
+      authCtx.login(res.data.token);
       alert('Logged in Successfully');
       setEmail("");
       setPassword("");
