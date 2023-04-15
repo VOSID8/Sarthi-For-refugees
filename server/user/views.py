@@ -5,7 +5,8 @@ from rest_framework.parsers import MultiPartParser, FormParser
 from rest_framework.authtoken.models import Token
 
 from django.contrib.auth import authenticate
-from django.core.files.storage import default_storage
+from django.conf import settings
+import os
 
 from .serializers import UserSerializer
 from .refugee_validate import validate
@@ -63,7 +64,12 @@ class ValidateRefugee(APIView):
         file_name = instance.file.name
         try:
             list = validate(file_name)
-        except:
+        except BaseException as e:
+            with open(os.path.join(settings.BASE_DIR, 'logs', 'script_error.log'), 'a') as f:
+                f.write(file_name)
+                f.write('\n')
+                f.write(str(e))
+                f.write('\n\n')
             return Response({'error': 'Some unexpected error occured!'}, status=status.HTTP_400_BAD_REQUEST)
         if list[0]=='Invalid':
             return Response({'error': 'Invalid ID card!'}, status=status.HTTP_400_BAD_REQUEST)
