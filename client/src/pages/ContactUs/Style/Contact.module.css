@@ -1,0 +1,46 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@100;300;400;500;600&display=swap');
+.bgimg{
+    width: -webkit-fill-available;
+    display: inline;
+}
+.bigcontainer{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 60px;
+    position: fixed;
+    top: 15%;
+    left: 24%;
+}
+.mailImg{
+    border-radius: 20px;
+    border-radius: 20px;
+    height: 45vh;
+    width: 21vw;
+}
+.container{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 100px;
+}
+.textfield{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 25px;
+    /* From https://css.glass */
+    background: linear-gradient(45deg, rgba(71, 186, 237, 0.42), #ffffff);
+    border-radius: 16px;
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    border: 1px solid rgba(71, 186, 237, 0.3);
+    height: 62vh;
+    width: 25vw;
+}
+.field{
+    width: 20vw;
+}

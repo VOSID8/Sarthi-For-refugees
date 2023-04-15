@@ -1,0 +1,51 @@
+.container{
+    display: flex;
+    flex-direction: column;
+    gap: 20%;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    background-color: #Ffff;
+    color: #015450;
+    /* overflow: hidden; */
+}
+.btn1{
+    font-size: 1.4em !important;
+    padding: 16px 40px !important;
+    gap: 30px !important;
+    background-color: #015450 !important;
+    color:white;
+    border-radius: 12px !important;
+    width: 15vw !important;
+    z-index: 1;
+    justify-content: center;
+}
+/* .box5 {
+    z-index: 0;
+    position: fixed;
+    width: 100vw;
+    top: 0;
+} */
+.bgimg{
+    width: -webkit-fill-available;
+    display: inline;
+    position: fixed;
+    z-index: -1;
+    width: 100vw;
+}
+
+.uploadButton {
+    background-color:#015450;
+    color: white;
+}
+
+.submitButton {
+    height: 50px;
+    width: 200px;
+    border-radius: 15px;
+    background-color: #015450;
+    border:none;
+    color: white;
+    cursor: pointer;
+    z-index: 5;
+}

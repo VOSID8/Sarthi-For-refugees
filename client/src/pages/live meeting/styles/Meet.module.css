@@ -1,0 +1,34 @@
+.container{
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+}
+.box1{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+}
+.div1{
+    width: 60vw;
+    height: 70vh;
+    background-color: red;
+}
+.box2{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+}
+.bottomimg{
+    position: fixed;
+    height: 30vh;
+    bottom: 0%;
+    right: 1%;
+}
+.meetBtn{
+    width: 10vw;
+}
+.sideImg{
+    width:15vw
+}
