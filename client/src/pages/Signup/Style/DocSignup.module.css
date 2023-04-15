@@ -1,0 +1,50 @@
+form{
+    background: none;
+    padding-bottom: 5vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 25px;
+    z-index: 1;
+    position: absolute;
+    top: 10%;
+    left: 12%;
+    /* From https://css.glass */
+    background: linear-gradient(45deg, rgba(71, 186, 237, 0.42), #ffffff);
+    border-radius: 16px;
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    border: 1px solid rgba(71, 186, 237, 0.3);
+    height: 100vh;
+    width: 80vw;
+}
+.container1{
+    display: flex;
+    flex-direction: column;
+    align-items:center;
+    justify-content: center;
+    gap: 40px;
+    /* overflow: scroll; */
+    scroll-behavior: smooth;
+}
+.container2{
+    display: flex;
+    flex-direction: column;
+    align-items:center;
+    justify-content: center;
+    gap: 40px;
+}
+.field{
+    width: 30vw;
+}
+.V1{
+    border-left: 3px black;
+    width: 1px;
+    height: 100vh;
+    background-color: black;
+}
+.bgimg{
+    width: -webkit-fill-available;
+    display: inline;
+}
