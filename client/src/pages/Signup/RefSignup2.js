@@ -1,6 +1,7 @@
-import { useState } from "react";
+import { useState, useContext } from "react";
 
-import Styles from "./Style/DocSignup.module.css";
+
+import Styles from "./Style/RefSignup.module.css";
 import * as React from "react";
 import TextField from "@mui/material/TextField";
 import Radio from "@mui/material/Radio";
@@ -15,7 +16,9 @@ import wave from "./image/wave.png";
 import axios from "axios"
 import { api_url } from "../../config";
 import { useNavigate } from "react-router-dom";
+import AuthContext from "../../store/auth-context";
 
+import CircularProgress from '@mui/material/CircularProgress';
 
 
 const RefSignup2 = (props) => {
@@ -25,20 +28,30 @@ const RefSignup2 = (props) => {
     const [city, setCity] = useState();
     const [country, setCountry] = useState();
     const [phone_number, setPhoneNumber] = useState();
+    const [dob, setDob] = useState();
+
+    const [isLoading, setIsLoading] = useState(false);
+    
+
+    const authCtx = useContext(AuthContext)
 
 
     const SubmitHandler = async (event) => {
         event.preventDefault();
 
+        setIsLoading(true);
+
         const formData = new FormData();
 
         formData.append("name", name);
         formData.append("city", city);
+        formData.append("email", email);
         formData.append("country", country);
         formData.append("password", password);
         formData.append("unhrc_number", props.unhrc_number);
         formData.append("image_id", props.id);
         formData.append("phone_number", phone_number);
+        formData.append("date_of_birth", dob)
         formData.append("role", "RF");
 
         const config = {
@@ -56,6 +69,10 @@ const RefSignup2 = (props) => {
             setPassword("");
             setCity("");
             setCountry("");
+            setDob("");
+            setPhoneNumber("");
+
+            setIsLoading(false);
         }
     };
 
@@ -87,6 +104,12 @@ const RefSignup2 = (props) => {
             variant="standard"
             value={email}
             onChange={e => setEmail(e.target.value)}
+          />
+          <input
+            className={Styles.dobInput}
+            type="date" 
+            id="dob"
+            onChange={e => setDob(e.target.value)}
           />
           <TextField
             className={Styles.field}
@@ -124,7 +147,8 @@ const RefSignup2 = (props) => {
           />
 
           <Button variant="contained" href="#contained-buttons" onClick={SubmitHandler}>
-            Submit
+            {isLoading && <CircularProgress />}
+            {!isLoading && 'Submit'}
           </Button>
         </div>
       </form>

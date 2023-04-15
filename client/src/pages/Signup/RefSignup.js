@@ -13,6 +13,8 @@ import wave from "./image/wave.png";
 import { api_url } from "../../config";
 import RefSignup2 from "./RefSignup2";
 
+import { CircularProgress } from "@mui/material";
+
 
 function RefSignup() {
   const [refCard, setRefCard] = useState();
@@ -20,6 +22,7 @@ function RefSignup() {
   const [unhrcNumber, setUnhrcNumber] = useState();
   const [id, setId] = useState();
 
+  const [isLoading, setIsLoading] = useState(false);
   const navigate = useNavigate();
 
   const onImageSelect = (e) => {
@@ -33,6 +36,8 @@ function RefSignup() {
   }
 
   const onSubmit = async (e) => {
+    setIsLoading(true)
+
     if(refCard) {
       const formData = new FormData()
       formData.append("id_proof", refCard);
@@ -56,6 +61,7 @@ function RefSignup() {
         setId(res.data.id);
         setUnhrcNumber(res.data.unhrc_number);
 
+        setIsLoading(false)
       }
     }
   }
@@ -70,12 +76,15 @@ function RefSignup() {
           {" "}
           <h1 style={{ fontSize: "3em" }}>UPLOAD YOUR REFUGEE CARD HERE </h1>
           <Stack style={{justifyContent:"center"}} direction="row" alignItems="center" spacing={2}>
-              <input accept="image/*" multiple type="file" className={Styles.uploadButton} onChange={onImageSelect} />
-              <FileUploadIcon />
+            <input accept="image/*" multiple type="file" className={Styles.uploadButton} onChange={onImageSelect} />
+            <FileUploadIcon />
           </Stack>
         </div>
   
-        <button className={Styles.submitButton} onClick={onSubmit}>Submit</button>
+        <button className={Styles.submitButton} onClick={onSubmit}>
+          {isLoading && <CircularProgress />}
+          {!isLoading && 'Submit'}
+        </button>
       </div>
     );
   } else {

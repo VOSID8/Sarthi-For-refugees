@@ -5,22 +5,26 @@ from .managers import UserManager
 # Create your models here.
 
 
+def id_upload_to(instance, filename):
+    return f'refugee/{instance.folder_name}/{filename}'
+
 class ValidationImage(models.Model):
-    image_name = models.CharField(max_length=2500)
+    file = models.ImageField(upload_to=id_upload_to, null=True, default=None)
+    folder_name = models.CharField(max_length=128, default='')
     unhrc_number = models.CharField(max_length=128, default='')
 
     def __str__(self):
         return str(self.id)
+
+    def save(self):
+        super().save()
+        return self
     
 
 DESIGNATION_CHOICES = [
     ['RF', 'Refugee'],
     ['DR', 'Doctor']
 ]
-
-def id_upload_to(instance, filename):
-    return f'uploads/doctor/{filename}'
-
 
 class User(AbstractBaseUser):
 
@@ -32,7 +36,7 @@ class User(AbstractBaseUser):
     country = models.CharField(max_length=128)
     date_of_birth = models.DateField()
 
-    doctor_id = models.ImageField(upload_to=id_upload_to, null=True, default=None)
+    doctor_id = models.ImageField(upload_to='upload/doctor', null=True, default=None)
     refugee_card = models.ForeignKey(ValidationImage, null=True, default=None, on_delete=models.CASCADE)
 
     role = models.CharField(max_length=2, choices=DESIGNATION_CHOICES, default='DR')

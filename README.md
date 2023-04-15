@@ -1,3 +1,3 @@
-# rehmat-project
+# Sarthi-project
 
 frontend made by dogra dever
