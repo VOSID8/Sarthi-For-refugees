@@ -16,5 +16,8 @@ urlpatterns = [
     path('cancel/', views.CancelScheduledSlot.as_view()),
     path('cancel-doctor-free/', views.CancelDoctorFreeSlot.as_view()),
     path('meeting-details/', views.MeetingDetails.as_view()),
+    path('doctor-next-slot/', views.NextSlotForDoctor.as_view()),
+    path('doctor-todays-past-slots/', views.SlotsAttendedTodayByDoctor.as_view()),
+    path('meeting-token/', views.AgoraToken.as_view()),
     path('call/<slug:slug>/', views.callView)
 ]

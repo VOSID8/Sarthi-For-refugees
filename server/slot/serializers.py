@@ -38,7 +38,7 @@ class ScheduledSlotSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = ScheduledSlot
-        fields = ['id', 'date_str', 'time_str', 'slug']
+        fields = ['id', 'date_str', 'time_str']
 
 
 class PrescriptionSerializer(serializers.ModelSerializer):

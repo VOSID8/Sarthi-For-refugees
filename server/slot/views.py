@@ -184,10 +184,48 @@ def callView(request, slug):
 
     # user = token_object.user
 
-    slot = ScheduledSlot.objects.filter(slug=slug).first()
+    slot = ScheduledSlot.objects.filter(id=slug).first()
     # if slot is None or slot.patient!=user and slot.doctor!=user:
     #     return HttpResponse('Invalid ID')
 
     creds = createToken(slot)
 
     return render(request, 'slot/index.html', context={'token': creds['token'], 'channel': creds['channel'], 'uid': creds['uid']})
+
+
+class NextSlotForDoctor(APIView):
+    permission_classes = [IsAuthenticated&IsDoctor]
+
+    def get(self, request):
+        instance = ScheduledSlot.objects.filter(doctor=request.user, time__gt=datetime.now()).first()
+        if instance is None:
+            return Response(status=status.HTTP_204_NO_CONTENT)
+        serializer = ScheduledSlotSerializer(instance)
+        return Response(serializer.data, status=status.HTTP_200_OK)
+
+
+class SlotsAttendedTodayByDoctor(APIView):
+    permission_classes = [IsAuthenticated&IsDoctor]
+
+    def get(self, request):
+        count = ScheduledSlot.objects.filter(doctor=request.user, time__lte=datetime.now(), time__gt=datetime.now().date()).count()
+        return Response({'count': count}, status=status.HTTP_200_OK)
+
+
+class AgoraToken(APIView):
+    permission_classes = [IsAuthenticated]
+
+    def post(self, request):
+        id = request.data.get('id')
+        slot = ScheduledSlot.objects.filter(id=id).first()
+        
+        if slot is None:
+            return Response({'error': 'Invalid Id!'}, status=status.HTTP_400_BAD_REQUEST)
+        
+        if slot.doctor is not request.user and slot.patient is not request.user or slot.time>datetime.now() or (datetime.now()-slot.time).seconds>300:
+            return Response({'error': 'Unauthorised!'}, status=status.HTTP_403_FORBIDDEN)
+        
+        creds = createToken(slot)
+
+        return Response({'token': creds['token'], 'channel': creds['channel'], 'uid': creds['uid']}, status=status.HTTP_200_OK)
+

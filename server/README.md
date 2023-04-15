@@ -348,3 +348,54 @@ JSON Request Data
 Returns `200 OK` status code for succesful execution.
 
 Return `400 Bad Request` status code for invalid requests.
+
+
+#### Upcoming Slot for Doctor
+
+```http
+  GET /slot/doctor-next-slot/
+```
+
+- Authenticated Endpoint
+- Only for Doctors
+
+JSON Response
+| Parameter | Type     | Description                |
+| :-------- | :------- | :------------------------- |
+| `id` | `int` | ID of record |
+| `date_str` | `string` | format: YYYY-MM-DD |
+| `time_str` | `string` | format: HH:mm |
+
+Returns `204 NO CONTENT` status code if there is no upcoming slot.
+
+
+#### Slots attended by the Doctor today
+
+```http
+  GET /slot/doctor-todays-past-slots/
+```
+
+- Authenticated Endpoint
+- Only for Doctors
+
+JSON Response
+| Parameter | Type     | Description                |
+| :-------- | :------- | :------------------------- |
+| `count` | `int` | Number of slots attended by Doctor |
+
+
+#### Agora Meeting Token (for both Doctor and Refugee)
+
+```http
+  GET /slot/meeting-token/
+```
+
+- Authenticated Endpoint
+
+JSON Response
+| Parameter | Type     | Description                |
+| :-------- | :------- | :------------------------- |
+| `token` | `string` | Meeting Token |
+| `channel` | `string` | Meeting Channel Name |
+| `uid` | `string` | User's UID for meeting |
+
