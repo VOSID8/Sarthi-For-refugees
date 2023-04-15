@@ -6,11 +6,15 @@ from .managers import UserManager
 
 
 class ValidationImage(models.Model):
-    image_name = models.CharField(max_length=2500)
+    file = models.ImageField(upload_to='upload/refugee', null=True, default=None)
     unhrc_number = models.CharField(max_length=128, default='')
 
     def __str__(self):
         return str(self.id)
+
+    def save(self):
+        super().save()
+        return self
     
 
 DESIGNATION_CHOICES = [

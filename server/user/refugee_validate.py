@@ -8,13 +8,13 @@ import csv
 
 
 def validate(file_name):
-    # pytesseract.pytesseract.tesseract_cmd = 'C:\\Program Files\\Tesseract-OCR\\tesseract.exe'
+    pytesseract.pytesseract.tesseract_cmd = 'C:\\Program Files\\Tesseract-OCR\\tesseract.exe'
     scale = 0.5
     point1 = []
     point2 = []
     myPoints = []
     # path = 'TargetFile'
-    path = os.path.join(settings.MEDIA_ROOT, 'validate')
+    path = os.path.join(settings.MEDIA_ROOT, 'upload', 'refugee')
     # myPic = os.listdir(path)
     myPic = os.listdir(path)
     # imgQ = cv2.imread('TargetFile\\'+myPic[0])
