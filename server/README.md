@@ -149,3 +149,15 @@ JSON Response
 | `role` | `string` | DR: Doctor, RF: Refugee |
 
 Returns `{"error": "Invalid Credentials!"}` for invalid login credentials.
+
+
+```http
+  GET /auth/role/
+```
+- Authenticated Endpoint
+
+JSON Response
+| Parameter | Type     | Description                |
+| :-------- | :------- | :------------------------- |
+| `role` | `string` | 'refugee': Refugee, 'doctor': Doctor |
+

@@ -119,5 +119,5 @@ class UserDesignation(APIView):
     def get(self, request):
         user = request.user
         if user.role=='RF':
-            return Response({'role': 'refigee'}, status=status.HTTP_200_OK)
+            return Response({'role': 'refugee'}, status=status.HTTP_200_OK)
         return Response({'role': 'doctor'}, status=status.HTTP_200_OK)
