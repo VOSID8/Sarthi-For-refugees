@@ -25,7 +25,7 @@ function Donation() {
         <div className={styles.columns}>
           <div className={styles.column1}>
             <div className={styles.donationContent}>
-              EVERY LITTLE COUNTS, SO LETS WORK TOGETHER AND HELP THE REFUGEES{" "}
+             <h2>EVERY LITTLE COUNTS, SO LETS WORK TOGETHER AND HELP THE REFUGEES{" "}</h2> 
             </div>
             <div>
               <img src={donationGIF} alt="" />

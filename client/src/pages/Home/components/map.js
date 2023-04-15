@@ -4,7 +4,7 @@ function LocationMap() {
   return (
     <div className="container">
         <div className="mapContainer">
-            <img src="http://res.cloudinary.com/slzr/image/upload/v1500321012/world-map-1500_vvekl5.png" />
+            <img className={styles.map} src="http://res.cloudinary.com/slzr/image/upload/v1500321012/world-map-1500_vvekl5.png" />
             <div className={`${styles.point} ${styles.venezuela} ${styles.tippy}`} title="Venezuela"></div>
             <div className={`${styles.point} ${styles.brasil} ${styles.tippy}`} title="Brasil"></div>
             <div className={`${styles.point} ${styles.argentina} ${styles.tippy}`} title="Argentina"></div>

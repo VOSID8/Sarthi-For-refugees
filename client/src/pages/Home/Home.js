@@ -29,8 +29,8 @@ function Home() {
     <div className={styles.home}>
       <div className="spacer"></div>
       <div className={styles.hero}>
-        <img src={img1} alt="" className={styles.heroImg} />
-        <img src={gif1} alt="" className={styles.heroImg} />
+        <img src={img1} alt="" className={`${styles.heroImg} ${styles.heroimg2}`} />
+        <img src={gif1} alt="" className={`${styles.heroImg} ${styles.heroimg1}`} />
       </div>
 
       <Swiper
@@ -151,7 +151,7 @@ function Home() {
 
       <div>
         <div style={{ display: "flex", justifyContent: "center" }}>
-          <img src={locations} alt="" style={{ display: "block" }} />
+          <img className={styles.locations} src={locations} alt="" style={{ display: "block" }} />
           <img className={styles.globe} src={globe} alt="rotating globe"></img>
         </div>
 
