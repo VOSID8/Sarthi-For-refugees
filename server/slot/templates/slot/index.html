@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="shortcut icon" href="{% static 'slot/img/favicon.jpeg' %}" type="image/x-icon">
+    <title>Rehmat | A Healing Touch...</title>
+    <link rel="stylesheet" href="{% static 'slot/css/styles.css' %}">
+</head>
+<body>
+    <main>
+
+        <section id="video-streams">
+            
+        </section>
+
+        <section id="controls-wrapper">
+            <div class="icon-wrapper">
+                <img class="control-icon" id="mic-btn" src="{% static 'slot/img/microphone.svg' %}" />
+            </div>
+
+            <div class="icon-wrapper">
+                <img class="control-icon" id="camera-btn" src="{% static 'slot/img/video.svg' %}" />
+            </div>
+
+            <div class="icon-wrapper">
+                <img class="control-icon" id="leave-btn" src="{% static 'slot/img/leave.svg' %}" />
+            </div>
+        </section>
+    </main>
+
+    <div style="display: none;" id="token">{{token}}</div>
+    <div style="display: none;" id="channel">{{channel}}</div>
+    <div style="display: none;" id="uid">{{uid}}</div>
+
+    <script type="text/javascript" src="{% static 'slot/assets/AgoraRTC_N-4.16.1.js' %}"></script>
+    <script type="text/javascript" src="{% static 'slot/js/script.js' %}"></script>
+</body>
+</html>
