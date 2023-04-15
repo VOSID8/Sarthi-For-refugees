@@ -1,7 +1,4 @@
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@100;300;400;500;600&display=swap');
-body{
-    width: fit-content;
-}
 .bgimg{
     width: -webkit-fill-available;
     display: inline;
@@ -46,29 +43,4 @@ body{
 }
 .field{
     width: 20vw;
-}
-@media only screen and (max-width:426px) {
-    .bigcontainer h2{
-        font-size: 5rem;
-    }
-    .mailImg{
-        display: none;
-    }
-    .textfield{
-        height: 164vh;
-        width: 179vw;
-    }
-    .textfield::placeholder{
-        font-size: 100px;
-    }
-    .field{
-        width: 100vw;
-    }
-    .field::placeholder {
-        font-size: 100px;
-    }
-    .MuiButton-contained  {
-        font-size: 50px !important;
-        width: 50px !important;
-    }
 }
