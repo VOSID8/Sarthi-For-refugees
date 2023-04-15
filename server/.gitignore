@@ -44,5 +44,10 @@ venv
 #media root directory
 media
 
+#static root directory
+static
+
 logs
 
+cert.pem
+privkey.pem

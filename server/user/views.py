@@ -103,3 +103,11 @@ class LoginView(APIView):
             'name': user.name,
             'role': user.role
         }, status=status.HTTP_200_OK)        
+
+
+class UserDesignation(APIView):
+    def get(self, request):
+        user = request.user
+        if user.role=='RF':
+            return Response({'role': 'refigee'}, status=status.HTTP_200_OK)
+        return Response({'role': 'doctor'}, status=status.HTTP_200_OK)
