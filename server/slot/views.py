@@ -62,17 +62,13 @@ class AvailableDoctorSlots(APIView):
         date = request.data.get('date')
         queryset = AvailableSlot.objects.distinct('time')
 
-        data = {}
+        data = []
         for item in queryset:
-            key = item.time.date()
-            if len(data[key]):
-                data[key].append([item.time.time()])
-            else:
-                data[key] = [item.time.time()]
+            key = item.time.strftime('%y-%m-%d')
+            if key==date:
+                data.append([item.time.strftime('%H:%M')])
 
-        date = date.strptime(date, 'YYYY-MM-DD')
-
-        return Response(data[date], status=status.HTTP_200_OK)
+        return Response(data, status=status.HTTP_200_OK)
 
 
 class DoctorFreeSlotAdd(APIView):
@@ -82,12 +78,12 @@ class DoctorFreeSlotAdd(APIView):
         user = request.user
 
         if not user.is_verified_doctor or user.role!='DR':
-            return Response(status=status.HTTP_400_BAD_REQUEST)
-        
+            return Response({'error': 'You are not authorised to visit this page!'}, status=status.HTTP_400_BAD_REQUEST)
+
         date = request.data.get('date')
         time = request.data.get('time')
 
-        instance = AvailableSlot(doctor=user, time=datetime.strptime(f"{date}_{time}", "YYYY-MM-DD_HH:mm:SS"))
+        instance = AvailableSlot(doctor=user, time=datetime.strptime(f"{date}_{time}", "YYYY-MM-DD_HH:mm"))
         instance.save()
 
         return Response(status=status.HTTP_201_CREATED)
@@ -100,7 +96,7 @@ class PatientFinaliseSlot(APIView):
         date = request.data.get('date')
         time = request.data.get('time')
         
-        free_slot_instance = AvailableSlot.objects.filter(time=datetime.strftime(f"{date}_{time}", "YYYY-MM-DD_HH:mm:SS")).first()
+        free_slot_instance = AvailableSlot.objects.filter(time=datetime.strftime(f"{date}_{time}", "YYYY-MM-DD_HH:mm")).first()
         if free_slot_instance is None:
             return Response(status=status.HTTP_400_BAD_REQUEST)
         

@@ -69,6 +69,8 @@ Start the server
 
 ## API Reference
 
+### Authentication Endpoints
+
 #### Register (for Doctor)
 
 ```http
@@ -151,6 +153,8 @@ JSON Response
 Returns `{"error": "Invalid Credentials!"}` for invalid login credentials.
 
 
+#### Get Role of logged-in user
+
 ```http
   GET /auth/role/
 ```
@@ -161,3 +165,186 @@ JSON Response
 | :-------- | :------- | :------------------------- |
 | `role` | `string` | 'refugee': Refugee, 'doctor': Doctor |
 
+
+### Slot Booking Endpoints
+
+#### Free Slots of Logged In Doctor
+
+```http
+  GET /slot/view/available/doctor/
+```
+JSON Response
+| Parameter | Type     | Description                |
+| :-------- | :------- | :------------------------- |
+| `id` | `int` | ID of record |
+| `date_str` | `string` | format: YYYY-MM-DD |
+| `time_str` | `string` | format: HH:mm |
+
+
+#### Scheduled Slots of Logged In Doctor
+
+```http
+  GET /slot/view/scheduled/doctor/
+```
+JSON Response
+| Parameter | Type     | Description                |
+| :-------- | :------- | :------------------------- |
+| `id` | `int` | ID of record |
+| `date_str` | `string` | format: YYYY-MM-DD |
+| `time_str` | `string` | format: HH:mm |
+
+
+#### Scheduled Slots of Logged In Refugee
+
+```http
+  GET /slot/view/scheduled/refugee/
+```
+JSON Response
+| Parameter | Type     | Description                |
+| :-------- | :------- | :------------------------- |
+| `id` | `int` | ID of record |
+| `date_str` | `string` | format: YYYY-MM-DD |
+| `time_str` | `string` | format: HH:mm |
+
+
+#### Prescriptions given by Logged In Doctor
+
+```http
+  GET /slot/view/prescription/doctor/
+```
+JSON Response
+| Parameter | Type     | Description                |
+| :-------- | :------- | :------------------------- |
+| `id` | `int` | ID of record |
+| `patient` | `string` | Patient Name |
+| `doctor` | `string` | Doctor Name |
+| `date_str` | `string` | format: YYYY-MM-DD |
+| `time_str` | `string` | format: HH:mm |
+| `text` | `string` | Prescription Description |
+
+
+#### Previous Presecriptions of Logged In Refugee
+
+```http
+  GET /slot/view/prescription/refugee/
+```
+JSON Response
+| Parameter | Type     | Description                |
+| :-------- | :------- | :------------------------- |
+| `id` | `int` | ID of record |
+| `patient` | `string` | Patient Name |
+| `doctor` | `string` | Doctor Name |
+| `date_str` | `string` | format: YYYY-MM-DD |
+| `time_str` | `string` | format: HH:mm |
+| `text` | `string` | Prescription Description |
+
+#### Available Slots for booking (for refugee)
+
+```http
+  POST /slot/available-slots/
+```
+- Authenticated Endpoint
+- Only for Refugee
+
+JSON request data
+| Parameter | Type     | Description                |
+| :-------- | :------- | :------------------------- |
+| `date` | `string` | Format: `YYYY-MM-DD` |
+
+JSON Response Array format:
+`["HH:MM", "HH:MM", ...]`
+
+
+#### Add free slot (for Doctor)
+
+```http
+  POST /slot/add-free/
+```
+- Authenticated Endpoint
+- Only for Doctors
+
+JSON Request Data
+| Parameter | Type     | Description                |
+| :-------- | :------- | :------------------------- |
+| `date` | `string` | format: YYYY-MM-DD |
+| `time` | `string` | format: HH:mm |
+
+Returns `201 CREATED` status code for succesful execution.
+
+Return `{'error': 'You are not authorised to visit this page!'}` and `400 bad request` status code if user is unauthorised.
+
+#### Schedule slot (for Refugee)
+
+```http
+  POST /slot/schedule/
+```
+
+- Authenticated Endpoint
+- Only for Refugee
+
+JSON Request Data
+| Parameter | Type     | Description                |
+| :-------- | :------- | :------------------------- |
+| `date` | `string` | format: YYYY-MM-DD |
+| `time` | `string` | format: HH:mm |
+
+Returns `201 CREATED` status code for succesful execution.
+
+Return `400 Bad Request` status code for invalid requests.
+
+
+#### Previous Presecriptions of Refugee with given slot
+
+```http
+  GET /slot/patient-previous-prescriptions/<int:id>/
+```
+- Here `id` is ID of Scheduled Slot Object, gives all previous prescriptions of the patient with that slot.
+- Authenticated Endpoint
+- Only for doctors
+
+JSON Response
+| Parameter | Type     | Description                |
+| :-------- | :------- | :------------------------- |
+| `id` | `int` | ID of record |
+| `patient` | `string` | Patient Name |
+| `doctor` | `string` | Doctor Name |
+| `date_str` | `string` | format: YYYY-MM-DD |
+| `time_str` | `string` | format: HH:mm |
+| `text` | `string` | Prescription Description |
+
+
+#### Cancel Scheduled Slot (for both Doctor and Refugee)
+
+```http
+  POST /slot/cancel/
+```
+
+- Authenticated Endpoint
+
+JSON Request Data
+| Parameter | Type     | Description                |
+| :-------- | :------- | :------------------------- |
+| `id` | `int` | ID of Scheduled Slot Object |
+
+Returns `200 OK` status code for succesful execution.
+
+Return `400 Bad Request` status code for invalid requests.
+
+
+#### Cancel Free Slot (for Doctor)
+
+```http
+  POST /slot/cancel-doctor-free/
+```
+
+- Authenticated Endpoint
+- Only for Doctors
+
+JSON Request Data
+| Parameter | Type     | Description                |
+| :-------- | :------- | :------------------------- |
+| `id` | `int` | ID of Scheduled Slot Object |
+
+Returns `200 OK` status code for succesful execution.
+
+Return `400 Bad Request` status code for invalid requests.

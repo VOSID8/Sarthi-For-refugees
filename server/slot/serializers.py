@@ -11,7 +11,7 @@ class AvailableSlotSerializer(serializers.ModelSerializer):
     time_str = serializers.SerializerMethodField()
 
     def get_date_str(self, obj):
-        return obj.time.strftime('%d-%m-%y')
+        return obj.time.strftime('%y-%m-%d')
 
     def get_time_str(self, obj):
         return obj.time.strftime('%H:%M')
@@ -31,7 +31,7 @@ class ScheduledSlotSerializer(serializers.ModelSerializer):
     time_str = serializers.SerializerMethodField()
 
     def get_date_str(self, obj):
-        return obj.time.strftime('%d-%m-%y')
+        return obj.time.strftime('%y-%m-%d')
 
     def get_time_str(self, obj):
         return obj.time.strftime('%H:%M')
@@ -46,7 +46,7 @@ class PrescriptionSerializer(serializers.ModelSerializer):
     time_str = serializers.SerializerMethodField()
 
     def get_date_str(self, obj):
-        return obj.time.strftime('%d-%m-%y')
+        return obj.time.strftime('%y-%m-%d')
 
     def get_time_str(self, obj):
         return obj.time.strftime('%H:%M')
