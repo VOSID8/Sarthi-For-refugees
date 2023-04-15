@@ -70,7 +70,7 @@ class ValidateRefugee(APIView):
         instance.unhrc_number = list[1]
         instance = instance.save()
         return Response({
-            'id': 'instance.id',
+            'id': instance.id,
             'unhrc_number': list[1]
         }, status=status.HTTP_200_OK)
 
