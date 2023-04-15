@@ -60,7 +60,7 @@ class ValidateRefugee(APIView):
         file = request.data.get('id_proof')
         instance = ValidationImage(file=file)
         instance.save()
-        file_name = 'instance.file.name'
+        file_name = instance.file.name
         try:
             list = validate(file_name)
         except:
