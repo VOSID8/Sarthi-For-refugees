@@ -16,7 +16,7 @@ def validate(file_name):
     point2 = []
     myPoints = []
     # path = 'TargetFile'
-    path = os.path.join(settings.MEDIA_ROOT, 'upload', 'refugee')
+    path = os.path.join(settings.MEDIA_ROOT, 'refugee', file_name.split('/')[1])
     # myPic = os.listdir(path)
     myPic = os.listdir(path)
     # imgQ = cv2.imread('TargetFile\\'+myPic[0])

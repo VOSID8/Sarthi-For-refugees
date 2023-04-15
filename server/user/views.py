@@ -6,7 +6,7 @@ from rest_framework.authtoken.models import Token
 
 from django.contrib.auth import authenticate
 from django.conf import settings
-import os
+import os, random, string
 
 from .serializers import UserSerializer
 from .refugee_validate import validate
@@ -54,14 +54,21 @@ class Register(APIView):
         return Response(status=status.HTTP_201_CREATED)
 
 
+def get_random_text():
+    return f"{''.join(random.choice(string.ascii_letters + string.digits) for _ in range(20))}"
+
 class ValidateRefugee(APIView):
     parser_classes = [MultiPartParser, FormParser]
 
     def post(self, request):
         file = request.data.get('id_proof')
-        instance = ValidationImage(file=file)
+        folder_name = get_random_text()
+        while ValidationImage.objects.filter(folder_name=folder_name).exists():
+            folder_name = get_random_text()
+        instance = ValidationImage(file=file, folder_name=folder_name)
         instance.save()
         file_name = instance.file.name
+        print(file_name)
         try:
             list = validate(file_name)
         except BaseException as e:
