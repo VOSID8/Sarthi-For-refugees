@@ -405,3 +405,26 @@ JSON Response
 | `channel` | `string` | Meeting Channel Name |
 | `uid` | `string` | User's UID for meeting |
 
+
+### Payment Gateway Endpoints
+
+
+#### Get Payment Session ID
+
+```http
+  POST /donate/session-id/
+```
+
+JSON Request Data
+
+| Parameter | Type     | Description                |
+| :-------- | :------- | :------------------------- |
+| `amount` | `string` | Amount (in USD) |
+| `name` | `string` | Customer's Name |
+| `email` | `string` | Customer's email |
+| `phone_number` | `string` | Customer's Phone Number |
+
+JSON Response
+| Parameter | Type     | Description                |
+| :-------- | :------- | :------------------------- |
+| `payment_session_id` | `string` | Payment Session ID for Initiating Payment (CashFree PG) |

@@ -37,7 +37,7 @@ class InitialPayment(APIView):
         amount = request.data.get('amount')
 
         name = request.data.get('name')
-        email = request.data.get('name')
+        email = request.data.get('email')
         phone_number = request.data.get('phone_number')
 
         payload = {
