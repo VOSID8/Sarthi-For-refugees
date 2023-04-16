@@ -16,7 +16,7 @@ def createToken(slot):
     privilegeExpiresTs = currentTime + expirationTimeSeconds
 
     token = RtcTokenBuilder.buildTokenWithUid(settings.AGORA_APP_ID, settings.AGORA_CERTIFICATE, channelName, uid, role, privilegeExpiresTs)
-    print(token)
+    # print(token)
 
     return {'token': token, 'channel': channelName, 'uid': uid}
 

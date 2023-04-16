@@ -192,6 +192,9 @@ def callView(request, slug):
     # if slot is None or slot.patient!=user and slot.doctor!=user:
     #     return HttpResponse('Invalid ID')
 
+    # if (slot.time-datetime.now()).total_seconds()>300 or (datetime.now()-slot.time).total_seconds()>450:
+    #     return HttpResponseForbidden("Please wait! You're time is not now. See you soon.")
+
     creds = createToken(slot)
 
     return render(request, 'slot/index.html', context={'token': creds['token'], 'channel': creds['channel'], 'uid': creds['uid']})
