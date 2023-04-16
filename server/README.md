@@ -1,8 +1,7 @@
 
-# API for Rehmat
+# API for Sarthi
 
-API for project Rehmat, by team Us, for HackOwasp5.
-
+API for project Sarthi, by team Us.
 
 
 
@@ -428,3 +427,27 @@ JSON Response
 | Parameter | Type     | Description                |
 | :-------- | :------- | :------------------------- |
 | `payment_session_id` | `string` | Payment Session ID for Initiating Payment (CashFree PG) |
+
+
+### Contact Us
+
+
+#### Contact Us Form
+
+```http
+  POST /auth/contact/
+```
+
+JSON Request Data
+
+| Parameter | Type     | Description                |
+| :-------- | :------- | :------------------------- |
+| `first_name` | `string` | First Name (max length: 250) |
+| `last_name` | `string` | Last Name (max length: 250) |
+| `email` | `string` | Email ID (max length: 150) |
+| `text` | `string text` | Query text |
+
+
+Returns `201 CREATED` status code for succesful execution.
+
+Return `400 Bad Request` status code for invalid requests.

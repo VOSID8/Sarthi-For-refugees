@@ -65,3 +65,12 @@ class User(AbstractBaseUser):
     def __str__(self):
         return self.email
 
+
+class Contact(models.Model):
+    first_name = models.CharField(max_length=250)
+    last_name = models.CharField(max_length=250)
+    email = models.CharField(max_length=150)
+    text = models.TextField()
+
+    def __str__(self):
+        return f"{self.first_name} {self.last_name}"
