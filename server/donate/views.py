@@ -27,10 +27,10 @@ headers = {
 
 
 def customer_id(name):
-    return f"{name.split(' ')[0]}_{datetime.now().strftime('%Y%m%D%H%M%S')}"
+    return f"{name.split(' ')[0]}_{datetime.now().strftime('%y%m%d%H%M%S')}"
 
 def order_id():
-    return f"rehmat_{datetime.now().strftime('%Y%m%D%H%M%S')}_{''.join(choice(string.ascii_letters + string.digits) for _ in range(10))}"
+    return f"sarthi_{datetime.now().strftime('%y%m%d%H%M%S')}_{''.join(choice(string.ascii_letters + string.digits) for _ in range(10))}"
 
 class InitialPayment(APIView):
     def post(self, request):
@@ -40,18 +40,21 @@ class InitialPayment(APIView):
         email = request.data.get('email')
         phone_number = request.data.get('phone_number')
 
+        oid = order_id()
+        cid = customer_id(name)
+
         payload = {
             "customer_details": {
-                "customer_id": customer_id(name),
+                "customer_id": cid,
                 "customer_email": email,
                 "customer_phone": phone_number
             },
             "order_meta": {
                 "return_url": "http://127.0.0.1:8000/donate/post-payment?order_id={order_id}",
             },
-            "order_id":order_id,
+            "order_id":oid,
             "order_amount": amount,
-            "order_currency": "USD"
+            "order_currency": "INR"
         }
 
         response = requests.post(pg_url, json=payload, headers=headers)
@@ -68,9 +71,9 @@ class InitialPayment(APIView):
         instance = Transaction(
             name = name,
             email = email,
-            phone_numer = phone_number,
-            customer_id = customer_id,
-            order_id = order_id,
+            phone_number = phone_number,
+            customer_id = cid,
+            order_id = oid,
             amount = amount,
             cf_order_id = response_data['cf_order_id'],
             payment_session_id = response_data['payment_session_id'],
@@ -112,4 +115,4 @@ def postPayment(request):
 
 
 def redirect(request):
-    return render(request, 'order/initiate.html')
+    return render(request, 'donate/index.html')

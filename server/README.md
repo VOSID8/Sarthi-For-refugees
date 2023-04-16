@@ -5,12 +5,13 @@ API for project Sarthi, by team Us.
 
 [![Deployment](https://github.com/VOSID8/Sarthi-project/actions/workflows/deploy.yml/badge.svg)](https://github.com/VOSID8/Sarthi-project/actions/workflows/deploy.yml)
 
-
 ## Tech Stack
 
 **Server:** Django REST framework
 
 **Database:** PostgreSQL
+
+Deployed on GCP VM instance, using Nginx as reverse proxy and Docker as containerization tool.
 
 
 
@@ -42,13 +43,37 @@ For Linux and MacOS
 
 Install dependencies
 
+Note: For Windows users, replace psycopg2-binary with psycopg2 in requirements.txt
+
 ```bash
   pip install -r requirements.txt
 ```
 
 Make sure you have installed PostgreSQL
 
-Create *.env file* in base directory and place Secret-Key and Database credentials.
+Run the following commands in psql shell:  
+```
+psql postgres
+```
+Create a new database for your Django project:
+```
+CREATE DATABASE sarthi;
+```
+Create a new user with a password:
+```
+CREATE USER username WITH PASSWORD 'your_pass';
+```
+Grant all privileges on the database to the user:
+
+```
+GRANT ALL PRIVILEGES ON DATABASE sarthi TO username;
+```
+Exit the Postgres shell:
+```
+\q
+```
+
+Create *.env file* in base directory and place Secret-Key and Database credentials, as per the format given in `sample_creds.txt`
 
 Run Migrations
 
@@ -422,7 +447,7 @@ JSON Request Data
 | `amount` | `string` | Amount (in USD) |
 | `name` | `string` | Customer's Name |
 | `email` | `string` | Customer's email |
-| `phone_number` | `string` | Customer's Phone Number |
+| `phone_number` | `string` | Customer's Phone Number (including country code, without spaces) |
 
 JSON Response
 | Parameter | Type     | Description                |

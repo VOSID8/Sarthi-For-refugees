@@ -12,7 +12,7 @@ class Transaction(models.Model):
     payment_session_id = models.CharField(max_length=3000)
     amount = models.IntegerField()
 
-    is_paid = models.BooleanField(default=False)
+    is_paid = models.BooleanField(null=True, default=None)
 
     def __str__(self):
         return f"{self.name.split(' ')[0]}_{str(self.amount)}"
