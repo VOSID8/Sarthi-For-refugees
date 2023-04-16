@@ -10,5 +10,5 @@ recreateall:
 
 redeploy:
 	make destroy
-	git pull
+	sudo git pull
 	make create
