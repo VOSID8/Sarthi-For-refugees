@@ -3,6 +3,7 @@
 
 API for project Sarthi, by team Us.
 
+[![Deployment](https://github.com/VOSID8/Sarthi-project/actions/workflows/deploy.yml/badge.svg)](https://github.com/VOSID8/Sarthi-project/actions/workflows/deploy.yml)
 
 
 ## Tech Stack

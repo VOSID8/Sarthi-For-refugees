@@ -1,4 +1,4 @@
-name: "Redeploy REST API to VM"
+name: "Deployment"
 
 on:
   push:
