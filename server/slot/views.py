@@ -81,10 +81,11 @@ class DoctorFreeSlotAdd(APIView):
             return Response({'error': 'You are not authorised to visit this page!'}, status=status.HTTP_400_BAD_REQUEST)
 
         date = request.data.get('date')
-        time = request.data.get('time')
+        timeArr = request.data.get('time')
 
-        instance = AvailableSlot(doctor=user, time=datetime.strptime(f"{date}_{time}", "YYYY-MM-DD_HH:mm"))
-        instance.save()
+        for time in timeArr:
+            instance = AvailableSlot(doctor=user, time=datetime.strptime(f"{date}_{time}", "%Y-%m-%d_%H:%M"))
+            instance.save()
 
         return Response(status=status.HTTP_201_CREATED)
 

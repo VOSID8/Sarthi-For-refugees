@@ -267,7 +267,7 @@ JSON Request Data
 | Parameter | Type     | Description                |
 | :-------- | :------- | :------------------------- |
 | `date` | `string` | format: YYYY-MM-DD |
-| `time` | `string` | format: HH:mm |
+| `time` | `Array<string>` | Array of strings of format: `HH:mm` |
 
 Returns `201 CREATED` status code for succesful execution.
 
