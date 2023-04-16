@@ -97,7 +97,7 @@ class PatientFinaliseSlot(APIView):
         date = request.data.get('date')
         time = request.data.get('time')
         
-        free_slot_instance = AvailableSlot.objects.filter(time=datetime.strftime(f"{date}_{time}", "YYYY-MM-DD_HH:mm")).first()
+        free_slot_instance = AvailableSlot.objects.filter(time=datetime.strptime(f"{date}_{time}", "%Y-%m-%d_%H:%M")).first()
         if free_slot_instance is None:
             return Response(status=status.HTTP_400_BAD_REQUEST)
         
