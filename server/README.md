@@ -87,7 +87,7 @@ multipart/form-data
 | `country` | `string` | country (maximum length: 128) |
 | `role` | `string` | value: DR, for Doctor |
 | `date_of_birth` | `string` | User's Date of Birth in format YYYY-MM-DD |
-| `id_proof` | `file` | ID Proof Image File |
+| `doctor_id` | `file` | ID Proof Image File |
 
 Returns `HTTP 201 CREATED` status code for succesful execution.
 
