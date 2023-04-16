@@ -42,6 +42,7 @@ INSTALLED_APPS = [
 
     'rest_framework',
     'rest_framework.authtoken',
+    'corsheaders',
 
     'user',
     'slot',
@@ -51,6 +52,7 @@ INSTALLED_APPS = [
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
+    "corsheaders.middleware.CorsMiddleware",
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
@@ -171,3 +173,5 @@ LOGGING = {
 
 AGORA_APP_ID = config('AGORA_APP_ID')
 AGORA_CERTIFICATE = config('AGORA_CERTIFICATE')
+
+CORS_ALLOW_ALL_ORIGINS = True
