@@ -192,6 +192,7 @@ JSON Response
 | `id` | `int` | ID of record |
 | `date_str` | `string` | format: YYYY-MM-DD |
 | `time_str` | `string` | format: HH:mm |
+| `doctor` | `string` | Doctor Name |
 
 
 #### Scheduled Slots of Logged In Refugee
@@ -205,6 +206,7 @@ JSON Response
 | `id` | `int` | ID of record |
 | `date_str` | `string` | format: YYYY-MM-DD |
 | `time_str` | `string` | format: HH:mm |
+| `doctor` | `string` | Doctor Name |
 
 
 #### Prescriptions given by Logged In Doctor
@@ -350,6 +352,7 @@ Returns `200 OK` status code for succesful execution.
 Return `400 Bad Request` status code for invalid requests.
 
 
+
 #### Upcoming Slot for Doctor
 
 ```http
@@ -365,6 +368,7 @@ JSON Response
 | `id` | `int` | ID of record |
 | `date_str` | `string` | format: YYYY-MM-DD |
 | `time_str` | `string` | format: HH:mm |
+| `doctor` | `string` | Doctor Name |
 
 Returns `204 NO CONTENT` status code if there is no upcoming slot.
 

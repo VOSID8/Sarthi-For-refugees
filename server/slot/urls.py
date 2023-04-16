@@ -2,12 +2,12 @@ from django.urls import path
 from . import views
 
 urlpatterns = [
-    path('view/<slug:model>/<slug:role>', views.SlotView.as_view()),
+    path('view/<slug:model>/<slug:role>/', views.SlotView.as_view()),
     # view/available/doctor - available slots for logged in doctor
     # view/scheduled/doctor - scheduled slots of logged in doctor
-    # view/scheduled/patient - scheduled slots of logged in patient
+    # view/scheduled/refugee - scheduled slots of logged in patient
     # view/prescription/doctor - prescriptions given by logged in doctor
-    # view/prescription/patient - prescriptions of logged in patient
+    # view/prescription/refugee - prescriptions of logged in patient
     
     path('available-slots/', views.AvailableDoctorSlots.as_view()),
     path('add-free/', views.DoctorFreeSlotAdd.as_view()),

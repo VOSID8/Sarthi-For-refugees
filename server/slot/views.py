@@ -47,7 +47,7 @@ class SlotView(APIView):
                 queryset = Prescription.objects.filter(doctor=user).all()
             else:
                 return Response(status=status.HTTP_400_BAD_REQUEST)
-            serializer = ScheduledSlotSerializer(queryset, many=True)
+            serializer = PrescriptionSerializer(queryset, many=True)
 
         else:
             return Response(status=status.HTTP_400_BAD_REQUEST)        
@@ -61,12 +61,12 @@ class AvailableDoctorSlots(APIView):
     def post(self, request):
         date = request.data.get('date')
         queryset = AvailableSlot.objects.distinct('time')
-
+        date = datetime.strptime(date, '%Y-%m-%d')
+        
         data = []
         for item in queryset:
-            key = item.time.strftime('%y-%m-%d')
-            if key==date:
-                data.append([item.time.strftime('%H:%M')])
+            if item.time.date()==date.date():
+                data.append(item.time.strftime('%H:%M'))
 
         return Response(data, status=status.HTTP_200_OK)
 
