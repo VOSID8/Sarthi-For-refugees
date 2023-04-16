@@ -21,7 +21,7 @@ function ViewDoctorSlot() {
             </div>
             <div>
               <div className={styles.boxes}>
-                <Box top="NEXT CALL SCHEDULED AT" middle="14:00" bottom="Set Reminder" />
+                <Box top="NEXT CALL SCHEDULED AT" middle="15:00" bottom="Set Reminder" />
                 <Box top="START A CALL" middle="+" bottom="Patient is waiting" />
                 <Box top="CALLS TAKEN TODAY" middle="3" bottom="Great Job" />
               </div>

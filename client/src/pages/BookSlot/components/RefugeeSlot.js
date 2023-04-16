@@ -44,7 +44,7 @@ function RefugeeSlot() {
 
     const res = await axios.post(`${api_url}slot/schedule/`, data, config)
 
-    if(res.status == 200) {
+    if(res.status == 201) {
       alert("Slot Booked!")
     }
 

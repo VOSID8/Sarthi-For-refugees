@@ -5,7 +5,7 @@ function Box(props) {
   return (
     <div className={styles.box}>
         <div className={styles.top}>{props.top}</div>
-        <div className={styles.middle}><a href="https://rehmat-api.ccstiet.com/slot/call/1" target="_blank">{props.middle}</a></div>
+        <div className={styles.middle}><a href="https://sarthi-api.visionofsid.com/slot/call/1" target="_blank">{props.middle}</a></div>
         <div className={styles.bottom}>{props.bottom}</div>
     </div>
   )

@@ -9,6 +9,7 @@ function ViewRefugeeSlot() {
   const [date, setDate] = useState();
   const [time, setTime] = useState();
   const [doctor, setDoctor] = useState();
+  const [id, setId] = useState();
 
   useEffect(() => {
     const getData = async () => {
@@ -24,6 +25,7 @@ function ViewRefugeeSlot() {
       setDate(res.data[0].date_str)
       setTime(res.data[0].time_str)
       setDoctor(res.data[0].doctor)
+      setId(res.data[0].id)
     }
 
     getData();
@@ -57,7 +59,7 @@ function ViewRefugeeSlot() {
             
           </div>
           <div>
-              <a href="https://rehmat-api.ccstiet.com/slot/call/1" className={styles.vidBtn} target="_blank">Start Video Call</a>
+              <a href="https://sarthi-api.visionofsid.com/slot/call/1" className={styles.vidBtn} target="_blank">Start Video Call</a>
           </div>
         </div>
     </div>
