@@ -17,7 +17,6 @@ class ScheduledSlot(models.Model):
     doctor = models.ForeignKey(User, on_delete=models.CASCADE, related_name='doctor_slot')
     time = models.DateTimeField()
 
-    slug = models.CharField(max_length=600, unique=True, null=True, default=None)
     uid = models.IntegerField(default=0)
 
     def __str__(self):

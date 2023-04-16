@@ -47,7 +47,7 @@ class SlotView(APIView):
                 queryset = Prescription.objects.filter(doctor=user).all()
             else:
                 return Response(status=status.HTTP_400_BAD_REQUEST)
-            serializer = ScheduledSlotSerializer(queryset, many=True)
+            serializer = PrescriptionSerializer(queryset, many=True)
 
         else:
             return Response(status=status.HTTP_400_BAD_REQUEST)        
@@ -61,18 +61,14 @@ class AvailableDoctorSlots(APIView):
     def post(self, request):
         date = request.data.get('date')
         queryset = AvailableSlot.objects.distinct('time')
-
-        data = {}
+        date = datetime.strptime(date, '%Y-%m-%d')
+        
+        data = []
         for item in queryset:
-            key = item.time.date()
-            if len(data[key]):
-                data[key].append([item.time.time()])
-            else:
-                data[key] = [item.time.time()]
+            if item.time.date()==date.date():
+                data.append(item.time.strftime('%H:%M'))
 
-        date = date.strptime(date, 'YYYY-MM-DD')
-
-        return Response(data[date], status=status.HTTP_200_OK)
+        return Response(data, status=status.HTTP_200_OK)
 
 
 class DoctorFreeSlotAdd(APIView):
@@ -82,13 +78,14 @@ class DoctorFreeSlotAdd(APIView):
         user = request.user
 
         if not user.is_verified_doctor or user.role!='DR':
-            return Response(status=status.HTTP_400_BAD_REQUEST)
-        
-        date = request.data.get('date')
-        time = request.data.get('time')
+            return Response({'error': 'You are not authorised to visit this page!'}, status=status.HTTP_400_BAD_REQUEST)
 
-        instance = AvailableSlot(doctor=user, time=datetime.strptime(f"{date}_{time}", "YYYY-MM-DD_HH:mm:SS"))
-        instance.save()
+        date = request.data.get('date')
+        timeArr = request.data.get('time')
+
+        for time in timeArr:
+            instance = AvailableSlot(doctor=user, time=datetime.strptime(f"{date}_{time}", "%Y-%m-%d_%H:%M"))
+            instance.save()
 
         return Response(status=status.HTTP_201_CREATED)
 
@@ -97,10 +94,13 @@ class PatientFinaliseSlot(APIView):
     permission_classes = [IsAuthenticated&IsRefugee]
 
     def post(self, request):
+        if ScheduledSlot.objects.filter(patient=request.user, time__gte=datetime.now()).exists():
+            return Response({'error': 'Slot already reserved, you can only have one reserved slot at a time!'}, status=status.HTTP_403_FORBIDDEN)
+
         date = request.data.get('date')
         time = request.data.get('time')
         
-        free_slot_instance = AvailableSlot.objects.filter(time=datetime.strftime(f"{date}_{time}", "YYYY-MM-DD_HH:mm:SS")).first()
+        free_slot_instance = AvailableSlot.objects.filter(time=datetime.strptime(f"{date}_{time}", "%Y-%m-%d_%H:%M")).first()
         if free_slot_instance is None:
             return Response(status=status.HTTP_400_BAD_REQUEST)
         
@@ -188,10 +188,51 @@ def callView(request, slug):
 
     # user = token_object.user
 
-    slot = ScheduledSlot.objects.filter(slug=slug).first()
+    slot = ScheduledSlot.objects.filter(id=slug).first()
     # if slot is None or slot.patient!=user and slot.doctor!=user:
     #     return HttpResponse('Invalid ID')
+
+    # if (slot.time-datetime.now()).total_seconds()>300 or (datetime.now()-slot.time).total_seconds()>450:
+    #     return HttpResponseForbidden("Please wait! You're time is not now. See you soon.")
 
     creds = createToken(slot)
 
     return render(request, 'slot/index.html', context={'token': creds['token'], 'channel': creds['channel'], 'uid': creds['uid']})
+
+
+class NextSlotForDoctor(APIView):
+    permission_classes = [IsAuthenticated&IsDoctor]
+
+    def get(self, request):
+        instance = ScheduledSlot.objects.filter(doctor=request.user, time__gt=datetime.now()).first()
+        if instance is None:
+            return Response(status=status.HTTP_204_NO_CONTENT)
+        serializer = ScheduledSlotSerializer(instance)
+        return Response(serializer.data, status=status.HTTP_200_OK)
+
+
+class SlotsAttendedTodayByDoctor(APIView):
+    permission_classes = [IsAuthenticated&IsDoctor]
+
+    def get(self, request):
+        count = ScheduledSlot.objects.filter(doctor=request.user, time__lte=datetime.now(), time__gt=datetime.now().date()).count()
+        return Response({'count': count}, status=status.HTTP_200_OK)
+
+
+class AgoraToken(APIView):
+    permission_classes = [IsAuthenticated]
+
+    def post(self, request):
+        id = request.data.get('id')
+        slot = ScheduledSlot.objects.filter(id=id).first()
+        
+        if slot is None:
+            return Response({'error': 'Invalid Id!'}, status=status.HTTP_400_BAD_REQUEST)
+        
+        if slot.doctor is not request.user and slot.patient is not request.user or slot.time>datetime.now() or (datetime.now()-slot.time).seconds>300:
+            return Response({'error': 'Unauthorised!'}, status=status.HTTP_403_FORBIDDEN)
+        
+        creds = createToken(slot)
+
+        return Response({'token': creds['token'], 'channel': creds['channel'], 'uid': creds['uid']}, status=status.HTTP_200_OK)
+

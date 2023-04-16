@@ -8,7 +8,7 @@ from django.contrib.auth import authenticate
 from django.conf import settings
 import os, random, string
 
-from .serializers import UserSerializer
+from .serializers import UserSerializer, ContactSerializer
 from .refugee_validate import validate
 from .models import ValidationImage, User
 
@@ -121,3 +121,14 @@ class UserDesignation(APIView):
         if user.role=='RF':
             return Response({'role': 'refugee'}, status=status.HTTP_200_OK)
         return Response({'role': 'doctor'}, status=status.HTTP_200_OK)
+
+
+class ContactView(APIView):
+    def post(self, request):
+        serializer = ContactSerializer(data=request.data)
+        
+        if not serializer.is_valid():
+            return Response(status=status.HTTP_400_BAD_REQUEST)
+        
+        serializer.save()
+        return Response(status=status.HTTP_201_CREATED)

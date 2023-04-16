@@ -1,3 +1,3 @@
-# Sarthi-project
+# sarthi-project
 
-frontend made by dogra dever
+Visit Client and Server for expanded readme and documentation

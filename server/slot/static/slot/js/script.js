@@ -70,7 +70,7 @@ let leaveCall = async () => {
 
     await client.leave();
 
-    window.open('/admin', '_self')
+    window.open('https://sarthi.visionofsid.com', '_self')
 }
 
 document.getElementById('leave-btn').addEventListener('click', leaveCall)

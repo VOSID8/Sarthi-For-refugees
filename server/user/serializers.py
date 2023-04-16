@@ -1,5 +1,5 @@
 from rest_framework.serializers import ModelSerializer,ValidationError
-from .models import User
+from .models import User, Contact
 
 allowed_extensions = ['jpg', 'jpeg', 'png', 'heic']
 
@@ -20,3 +20,9 @@ class UserSerializer(ModelSerializer):
         user.set_password(validated_data['password'])
         user.save()
         return user
+
+
+class ContactSerializer(ModelSerializer):
+    class Meta:
+        model = Contact
+        fields = '__all__'

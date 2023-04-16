@@ -27,7 +27,7 @@ SECRET_KEY = config('SECRET_KEY')
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = config('DEBUG', cast=bool, default=False)
 
-ALLOWED_HOSTS = ['rehmat-api.ccstiet.com', 'localhost', '127.0.0.1']
+ALLOWED_HOSTS = ['sarthi-api.visionofsid.com', 'localhost', '127.0.0.1']
 
 
 # Application definition
@@ -42,6 +42,7 @@ INSTALLED_APPS = [
 
     'rest_framework',
     'rest_framework.authtoken',
+    'corsheaders',
 
     'user',
     'slot',
@@ -51,6 +52,7 @@ INSTALLED_APPS = [
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
+    "corsheaders.middleware.CorsMiddleware",
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
@@ -171,3 +173,8 @@ LOGGING = {
 
 AGORA_APP_ID = config('AGORA_APP_ID')
 AGORA_CERTIFICATE = config('AGORA_CERTIFICATE')
+
+CORS_ALLOW_ALL_ORIGINS = True
+
+CF_CLIENT_ID = config('CF_CLIENT_ID')
+CF_SECRET_KEY = config('CF_SECRET_KEY')
