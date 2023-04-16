@@ -1,7 +1,7 @@
 import { useState } from "react";
 import styles from "../Styles/Button.module.css"
 
-function Button(props) {
+function DoctorButton(props) {
     const [buttonClasses, setButtonClasses] = useState(styles.slotButton);
 
     const buttonClicked = () => {
@@ -24,4 +24,4 @@ function Button(props) {
   )
 }
 
-export default Button
+export default DoctorButton

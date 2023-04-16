@@ -10,6 +10,7 @@ import Contact from "./pages/ContactUs/Contact";
 import BookSlot from "./pages/BookSlot/BookSlot";
 import Meet from "./pages/live meeting/Meet";
 import PastReports from "./pages/PastReports/PastReports";
+import ViewSlot from "./pages/ViewSlots/ViewSlot";
 
 
 const router = createBrowserRouter([
@@ -48,7 +49,7 @@ const router = createBrowserRouter([
       },
       {
         path: "/view-appointments",
-        element: <BookSlot />
+        element: <ViewSlot />
       },
       {
         path: "/meet",
