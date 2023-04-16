@@ -1,0 +1,61 @@
+.heading {
+    margin-top: 30px;
+    text-align: center;
+    margin-bottom: 50px;
+}
+
+.bgimg{
+    width: 100vw;
+    display: inline;
+
+}
+.avatarDiv{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 45px;
+    gap: 34px;
+    padding: 20px;
+    border-radius: 20px;
+    background: linear-gradient(45deg, rgba(71, 186, 237, 0.42), #ffffff);
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    border: 1px solid rgba(71, 186, 237, 0.3);
+    height: 12vh;
+    width: 37vw;
+
+}
+.container{
+    display: flex;
+    /* flex-direction: column; */
+    align-items: center;
+    justify-content: space-evenly;
+    /* position: fixed; */
+    right: 14%;
+
+}
+.vidBtn{
+    padding: 10px 41px;
+    border: none;
+    background: #595CF3;
+    color: #ffff;
+    font-size: 1.05em;
+    border-radius: 20px;
+    cursor: pointer;
+}
+
+.columns {
+    display: flex;
+    justify-content: space-evenly;
+}
+
+.boxes {
+    display: flex;
+    gap: 50px;
+}
+
+.timeDetails {
+    display: flex;
+    gap: 40px;
+}

@@ -108,7 +108,7 @@ function Home() {
             <div className={`${styles.aboutUs} ${styles.column}`}>
               <div className={styles.aboutUsHeading}>ABOUT US</div>
               <div className={styles.aboutUsContent}>
-                REHMAT: Refugee Health Management System is a non-profit
+                Sarthi: Refugee Health Management System is a non-profit
                 organisation that aims to aid refugees, and provide them health
                 consultation free of cost. <br />
                 Refugees often don't get the best facilities, and have to suffer

@@ -3,8 +3,9 @@ import { useNavigate, Link } from "react-router-dom";
 
 import Calendar from "react-calendar";
 import styles from "../Styles/refugeeSlot.module.css";
+import buttonStyles from "../Styles/Button.module.css"
 import "react-calendar/dist/Calendar.css";
-import Button from "./Button";
+import RefugeeButton from "./RefugeeButton";
 import left_triangle from "../images/left_triangle.png";
 import wave from "../images/wave.png";
 import { api_url } from "../../../config";
@@ -16,54 +17,69 @@ import axios from "axios";
 import avatar from "../images/avatar.png";
 
 function RefugeeSlot() {
-  const [timeSlots, setTimeSlots] = useState([]);
+  const [timeSlot, setTimeSlot] = useState([]);
   const [value, onChange] = useState(new Date());
+  const [availableSlots, setAvailableSlots] = useState([]);
 
-  const submitHandler = () => {
-    alert("Slot Booked!")
-  }
 
-    const dateFormat = value.getFullYear() + "-" + (value.getMonth()+1) + "-" + value.getDate();
+  const dateFormat = value.getFullYear() + "-" + (value.getMonth()+1) + "-" + value.getDate();
 
   const navigate = useNavigate();
 
-  useEffect(() => {
+
+  const submitHandler = async () => {
     const token = localStorage.getItem("rehmat-token");
 
-    if(!token) {
-        navigate("/refugee-signup")
+    const config = {
+        headers: {
+            "Authorization": `Token ${token}`
+        }
     }
-  }, []);
+
+
+    const data = {
+        "date": dateFormat,
+        "time": timeSlot
+    }
+
+    const res = await axios.post(`${api_url}slot/schedule/`, data, config)
+
+    if(res.status == 201) {
+      alert("Slot Booked!")
+    }
+
+  }
 
   useEffect(() => {
-    console.log(timeSlots);
-  }, [timeSlots]);
+    console.log(timeSlot);
+  }, [timeSlot]);
 
 
 
   useEffect(() => {
     const getSlots = async () => {
+        const token = localStorage.getItem("rehmat-token");
+
+        const config = {
+            headers: {
+                "Authorization": `Token ${token}`
+            }
+        }
+
+
         const data = {
             "date": dateFormat,
         }
     
-        const res = await axios.post(`${api_url}slot/available-slots/`, data)
+        const res = await axios.post(`${api_url}slot/available-slots/`, data, config)
+        setAvailableSlots(res.data)
+        console.log(res)
     }
     
     getSlots();
     
   }, [dateFormat])
 
-
-  const addValue = (value) => {
-    setTimeSlots((prevTimeSlots) => [...prevTimeSlots, value]);
-  };
-
-  const removeValue = (value) => {
-    const updatedSlots = timeSlots.filter((timeSlot) => timeSlot !== value);
-
-    setTimeSlots(updatedSlots);
-  };
 
   return (
     <div>
@@ -72,22 +88,6 @@ function RefugeeSlot() {
       </div>
       <div className="spacer"></div>
 
-      <h1 className={styles.heading}>CURRENT APPOINTMENTS</h1>
-      {/* <div>You have no current appointments</div> */}
-      <div className={styles.container}>
-        <div className={styles.avatarDiv}>
-          {" "}
-          <img
-            style={{ width: "7vw" }}
-            src={avatar}
-            alt="avatar image"
-          ></img>
-          <h3>DR. STEPHEN FLEMING CARDIOLOGIST</h3>
-        </div>
-        <div>
-            <a href="https://rehmat-api.ccstiet.com/slot/call/1/1" className={styles.vidBtn} target="_blank">Start Video Call</a>
-        </div>
-      </div>
 
       <h1 className={styles.heading}>BOOK AN APPOINTMENT</h1>
       <div className={styles.columns}>
@@ -97,56 +97,26 @@ function RefugeeSlot() {
         <div>
           {" "}
           <div className={styles.slotsDiv}>
-            <Button
-              value="9:00"
-              addValue={addValue}
-              removeValue={removeValue}
-              slotList={timeSlots}
-            />
-            <Button
-              value="10:00"
-              addValue={addValue}
-              removeValue={removeValue}
-              slotList={timeSlots}
-            />
-            <Button
-              value="11:00"
-              addValue={addValue}
-              removeValue={removeValue}
-              slotList={timeSlots}
-            />
-            <Button
-              value="12:00"
-              addValue={addValue}
-              removeValue={removeValue}
-              slotList={timeSlots}
-            />
-            <Button
-              value="13:00"
-              addValue={addValue}
-              removeValue={removeValue}
-              slotList={timeSlots}
-            />
-            <Button
-              value="14:00"
-              addValue={addValue}
-              removeValue={removeValue}
-              slotList={timeSlots}
-            />
-            <Button
-              value="15:00"
-              addValue={addValue}
-              removeValue={removeValue}
-              slotList={timeSlots}
-            />
-            <Button
-              value="16:00"
-              addValue={addValue}
-              removeValue={removeValue}
-              slotList={timeSlots}
-            />
+            {
+              availableSlots.map(slot => {
+                {console.log(slot)}
+                return (
+                  <button
+                    className={timeSlot=={slot}?`${buttonStyles.slotButton} ${buttonStyles.selected}`:buttonStyles.slotButton}
+                    onClick={e => {setTimeSlot(slot)}}
+                  >
+                    {slot}
+                  </button>
+                )
+                
+              })
+              
+            }
+            
+            
           </div>
-          <a href="https://rehmat-api.ccstiet.com/slot/call/1/1" className={styles.vidBtn} target="_blank">Book Slot</a>
+          {/* <a href="https://rehmat-api.ccstiet.com/slot/call/1/1" className={styles.vidBtn} target="_blank">Book Slot</a> */}
+          <button className={styles.vidBtn} onClick={submitHandler}>Book Slot</button>
 
         </div>
       </div>

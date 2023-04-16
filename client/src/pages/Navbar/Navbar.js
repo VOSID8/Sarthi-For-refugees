@@ -4,7 +4,7 @@ import styles from "./Styles/navbar.module.css";
 
 import BasicMenu from "./components/dropdown";
 import Person2Icon from "@mui/icons-material/Person2";
-import logo from "./Images/logo.png";
+import logo from "./Images/sarthilogo.png";
 import leaf from "./Images/leaf.png";
 
 function Navbar() {
