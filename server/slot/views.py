@@ -94,6 +94,9 @@ class PatientFinaliseSlot(APIView):
     permission_classes = [IsAuthenticated&IsRefugee]
 
     def post(self, request):
+        if ScheduledSlot.objects.filter(patient=request.user, time__gte=datetime.now()).exists():
+            return Response({'error': 'Slot already reserved, you can only have one reserved slot at a time!'}, status=status.HTTP_403_FORBIDDEN)
+
         date = request.data.get('date')
         time = request.data.get('time')
         

@@ -294,6 +294,8 @@ Returns `201 CREATED` status code for succesful execution.
 
 Return `400 Bad Request` status code for invalid requests.
 
+Returns `{'error': 'Slot already reserved, you can only have one reserved slot at a time!'}` and `403 Forbidden` status code, if refugee tries to book more than one slots.
+
 
 #### Previous Presecriptions of Refugee with given slot
 
