@@ -127,6 +127,18 @@ function RefugeeSlot() {
               removeValue={removeValue}
               slotList={timeSlots}
             />
+            <DoctorButton
+              value="20:00"
+              addValue={addValue}
+              removeValue={removeValue}
+              slotList={timeSlots}
+            />
+            <DoctorButton
+              value="21:00"
+              addValue={addValue}
+              removeValue={removeValue}
+              slotList={timeSlots}
+            />
           </div>
           {/* <a href="https://rehmat-api.ccstiet.com/slot/call/1/1" className={styles.vidBtn} target="_blank">Book Slot</a> */}
           <button onClick={submitHandler} className={styles.vidBtn}>Book Slot</button>

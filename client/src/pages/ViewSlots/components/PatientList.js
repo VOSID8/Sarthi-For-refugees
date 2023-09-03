@@ -9,7 +9,7 @@ function PatientList() {
             <div className={styles.listItemLeft}>
                 <div className={styles.timeDetails}>
                     <div className={styles.itemDate}>16-04-23</div>
-                    <div className={styles.itemTime}>15:00</div>
+                    <div className={styles.itemTime}>20:00</div>
                 </div>
                 
                 <div className={styles.patientName}>PATIENT NAME - TBD</div>
@@ -23,7 +23,7 @@ function PatientList() {
             <div className={styles.listItemLeft}>
                 <div className={styles.timeDetails}>
                     <div className={styles.itemDate}>16-04-23</div>
-                    <div className={styles.itemTime}>16:00</div>
+                    <div className={styles.itemTime}>21:00</div>
                 </div>
                 
                 <div className={styles.patientName}>PATIENT NAME - TBD</div>

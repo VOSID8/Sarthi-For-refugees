@@ -53,7 +53,7 @@ function BookSlot() {
         )
     }else if(userType == "doctor") {
         return (
-            <Doctor />
+            <DoctorSlot />
         )
     }
     
