@@ -1,0 +1,28 @@
+name: "Deployment"
+
+on:
+  push:
+    branches:
+      - 'main'
+  
+  workflow_dispatch:
+
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: "Deploy to vm using appleboy ssh-action action"
+        uses: appleboy/ssh-action@v0.1.6
+        
+        with:
+          host: ${{secrets.VM_HOST}}
+          
+          username: ${{secrets.VM_USERNAME}}
+          password: ${{secrets.VM_PASSWORD}}
+          
+          script: |
+            cd ${{secrets.REPOSITORY_PATH}}
+            cd server
+            echo ${{secrets.VM_PASSWORD}} | sudo -S make redeploy

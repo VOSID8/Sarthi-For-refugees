@@ -1,0 +1,14 @@
+SECRET_KEY='random_key'
+DEBUG=True
+
+AGORA_APP_ID='8c7fef9122c744f3a1bd799128c15981'
+AGORA_CERTIFICATE='2f806c6843dd426d9f95b63445acb73d'
+
+DB_NAME='rehmat'
+DB_USER='postgres'
+DB_PASSWORD='password'
+DB_HOST='localhost'
+DB_PORT='5432'
+
+CF_CLIENT_ID='Cashfree_account_client_id'
+CF_SECRET_KEY='Cashfree_account_secret_key'
